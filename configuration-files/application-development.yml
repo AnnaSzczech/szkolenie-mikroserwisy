@@ -1,0 +1,9 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+keycloak:
+  realm: cloud
+  auth-server-url: http://localhost:9100/auth
+  resource: cloud-service
+  public-client: true

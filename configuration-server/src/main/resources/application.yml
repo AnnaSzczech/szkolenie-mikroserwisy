@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/AnnaSzczech/szkolenie-mikroserwisy
+          search-paths: configuration-files
+        encrypt:
+          enabled: false
+encrypt:
+  key: SYMMETRICKEY

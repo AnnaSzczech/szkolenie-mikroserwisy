@@ -1,0 +1,14 @@
+server:
+  port: 8001
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: payments-topic
+          content-type: application/json
+          groups: shop
+order-fee: "{cipher}3d2a7605a0d7acc25db41c141fdd8a5a86ba97e49b23d70fb4a79e3941c535f2"
+payments-service:
+  name: payments-service
+  resource: /payments

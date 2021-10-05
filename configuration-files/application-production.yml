@@ -1,0 +1,21 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/
+spring:
+  zipkin:
+    baseUrl: http://zipkin-server:9411
+  boot:
+    admin:
+      client:
+        url: http://admin-server:8090
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka-service
+opentracing:
+  jaeger:
+    udp-sender:
+      host: jaeger-server
+      port: 6831

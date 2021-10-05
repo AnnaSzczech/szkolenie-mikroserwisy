@@ -1,0 +1,144 @@
+version: '3'
+services:
+  zookeeper-server:
+    image: wurstmeister/zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+  kafka-server:
+    image: wurstmeister/kafka
+    depends_on:
+      - zookeeper-server
+    restart: always
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      #KAFKA_ADVERTISED_HOST_NAME: kafka-server
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-server:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  #  zipkin-server:
+  #    image: openzipkin/zipkin
+  #    restart: always
+  #    ports:
+  #     - 9411:9411
+  jaeger-server:
+    image: jaegertracing/all-in-one
+    ports:
+      - 16686:16686
+  admin-server:
+    image: training/admin-server
+    restart: always
+    environment:
+      - PORT=8090
+    ports:
+      - 8090:8090
+  configuration-server:
+    image: training/configuration-server
+    depends_on:
+      - kafka-server
+    restart: always
+    environment:
+      - ACTIVE_PROFILE=production
+      - GIT_CONFIG_URI=https://github.com/landrzejewski/spring-cloud-training
+      - KAFKA_SERVER=kafka-server
+    ports:
+      - 8888:8888
+  discovery-server:
+    image: training/discovery-server
+    depends_on:
+      - configuration-server
+    restart: always
+    environment:
+      - ACTIVE_PROFILE=production
+      - CONFIGURATION_SERVER_URI=optional:configserver:http://configuration-server:8888
+    ports:
+      - 8761:8761
+  gateway-server:
+    image: training/gateway-server
+    depends_on:
+      - configuration-server
+    restart: always
+    environment:
+      - ACTIVE_PROFILE=production
+      - CONFIGURATION_SERVER_URI=optional:configserver:http://configuration-server:8888
+    ports:
+      - 8080:8080
+  payments-database:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=payments
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - PGDATA=/data
+    volumes:
+      - ./data/payments:/data
+  shop-database:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=shop
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - PGDATA=/datata
+    volumes:
+      - ./data/shop:/data
+  payments-service:
+    image: training/payments-service
+    depends_on:
+      - configuration-server
+      - kafka-server
+      - discovery-server
+      - payments-database
+    restart: always
+    environment:
+      - ACTIVE_PROFILE=production
+      - CONFIGURATION_SERVER_URI=optional:configserver:http://configuration-server:8888
+  shop-service:
+    image: training/shop-service
+    depends_on:
+      - configuration-server
+      - kafka-server
+      - discovery-server
+      - shop-database
+    restart: always
+    environment:
+      - ACTIVE_PROFILE=production
+      - CONFIGURATION_SERVER_URI=optional:configserver:http://configuration-server:8888
+  prometheus-server:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./configuration-files/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./configuration-files/rules.yml:/etc/prometheus/rules.yml
+  alertmanager-server:
+    image: prom/alertmanager
+    ports:
+      - 9093:9093
+    volumes:
+      - ./configuration-files/alertmanager.yml:/etc/prometheus/alertmanager.yml
+  grafana-server:
+    image: grafana/grafana
+    restart: always
+    depends_on:
+      - prometheus-server
+    ports:
+      - 3000:3000
+    volumes:
+      - ./configuration-files/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+  portainer:
+    image: portainer/portainer-ce
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/portainer:/data
+  keycloak-server:
+    image: jboss/keycloak
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    ports:
+      - 9100:8080

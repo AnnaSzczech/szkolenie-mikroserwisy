@@ -1,0 +1,116 @@
+POST http://localhost:8000/payments
+Accept: application/json
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0TUZWdlM2Wnp0Qk1JTElocWpRcEpyTERoWHhBUlFHa1JCY0luUU5la1drIn0.eyJleHAiOjE2MTY2Njg5NTIsImlhdCI6MTYxNjY2ODY1MiwianRpIjoiYmNjZTUzMzgtMzhhYS00NWIyLWIxNDUtMjYzZTUyZmRkMmRlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MTAwL2F1dGgvcmVhbG1zL2Nsb3VkIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjRjNDVmNWVjLWU2YTktNDU5Mi1iODJkLTQ3YjhiMDk1MzBjNiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNsb3VkLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiODA5YzEyOWItZGEyNS00MWZmLWIwZDctNjZmOWI5YTE3ZTA4IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJjbG91ZCIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlciJ9.aGSplxgsK4oUmps979ExTwgPWO5W7WA2hzw7Jt_YAuifhvWnliycIQdi8wmZ3ESET9XUgRzDUk0HzIbzFxsr0t8hnDhpRkfzwgdEbblW5rgXbJjqLciQiJOd_CEP5a4zgossKjrDkXTSd7c9B2nVWG5G7dDBmS5wOmwaMpgAqfB-KUnukfbxawaz9XbTyRaBvDQb4HJmf4liGFLwpZEo2EPcT85igFkQiyNDuW-3W6xCUblp_bGjKQWa8Thq39-JuUcftfEFDqYawCk_ZrFT5TnpKljBwUZVtNVM6sFqvqZk8YpNZrTS-gdhINKAWYWYasZfq5Nfn-IMtHppu9VVog
+
+{
+  "value": "1000 PLN",
+  "properties": {
+    "cardNumber": "123456",
+    "cvv": 255
+  }
+}
+
+###
+
+GET http://localhost:8000/payments/1b26ca62-e796-472a-8feb-d60de7a64d46
+Accept: application/json
+Content-Type: application/json
+
+###
+
+POST http://localhost:8001/orders
+Accept: application/json
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0TUZWdlM2Wnp0Qk1JTElocWpRcEpyTERoWHhBUlFHa1JCY0luUU5la1drIn0.eyJleHAiOjE2MTY3NjMxODUsImlhdCI6MTYxNjc2Mjg4NSwianRpIjoiOWZkMDgxNDgtNmE4OS00ZTZkLTlkZmUtZGUxYjY3ZjE1YTg5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MTAwL2F1dGgvcmVhbG1zL2Nsb3VkIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjRjNDVmNWVjLWU2YTktNDU5Mi1iODJkLTQ3YjhiMDk1MzBjNiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNsb3VkLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiYTIxYWQwMzgtMzIyMC00ODMxLTg0ODItZDNiYWU1ZGI5OWRlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjQyMDAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImNsb3VkIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyIn0.kh8GkgQi6DVMRmIdH41Ld6MV4BASLCaWos9dacXGC0DkCkZYiiEg_mtPwqFtsbnmFk2j3Wf-AT3Hozrt8P0avvjSrW2efWirPrU7upPODprDAr7l0Pv7PL2BqzIpOTidzHTk7aWqFNEryt9H0Ve6p6L3g58yCq1UVOLTmeVlyBuI6IEz2gnlIXd5FglXC8fM09SioMud3ip5YxkIWN6sfXQlZCu-Wh3IXsjXvSc78BQre5F7ggPIdfcqCkehxGUT0f8PtzQVBAzsoI010QUW9Kzt55J-t1WOyOElUEj1TK-dzB9V2rItot4JQJRm1rnxwCS4d7pINYdlql-qTRsl-A
+
+{
+  "ownerId": 1,
+  "productsIds": [1, 2]
+}
+
+###
+
+GET http://localhost:8001/orders/3
+Accept: application/json
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/api/payments
+Accept: application/json
+Content-Type: application/json
+
+{
+  "value": "1000 PLN",
+  "properties": {
+    "cardNumber": "123456",
+    "cvv": 255
+  }
+}
+
+###
+
+GET http://localhost:8080/api/payments/6b071d61-8e23-4a50-8f9e-325c97089baf
+Accept: application/json
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/api/shop/orders
+Accept: application/json
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0TUZWdlM2Wnp0Qk1JTElocWpRcEpyTERoWHhBUlFHa1JCY0luUU5la1drIn0.eyJleHAiOjE2MTY2Njk4MDEsImlhdCI6MTYxNjY2OTUwMSwianRpIjoiMjVhYjJmOGMtZjdhMi00YjVmLWFmY2UtYzk4YjE0ZmNjNzI2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MTAwL2F1dGgvcmVhbG1zL2Nsb3VkIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjRjNDVmNWVjLWU2YTktNDU5Mi1iODJkLTQ3YjhiMDk1MzBjNiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNsb3VkLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiMTBjZTVmYTEtOWE3Mi00MDFjLWIyZDItNjQ1OTE4OWQyZWVkIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJjbG91ZCIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlciJ9.Bh9MQLvn8kwbLqmovpgJ7S__Y0Gx5o5HUDVVZaR4YDXuJ8FQWQGBEDc5n6U9jWoe8wtFkgMb3YZrsXMSp5bc8XOeMpx18LUsyyYlmQK-is1MXR5QW5666zleMHVetPW-brqlJD_0KvfZnS0niCHYnSzIPThkHtFbrcTBwg_S_tHcRZ0nJvYpsnewCmp7zpPwi9vs0EiI7sOzjXinRZkwZpp1eahAZLGepniGGHrTeiiTOgEjMWQq6qMrHozl2dHUzBJRa5NhHBKVcKr5qnzA_2spudu5SYpGKkJmDopIG862Iv6EVvW3Vm20lSeiv_VjThbZiKMsjcNjE7OZjZ_kqw
+
+{
+  "ownerId": 1,
+  "productsIds": [1, 2]
+}
+
+###
+
+GET http://localhost:8080/api/shop/orders/3
+Accept: application/json
+Content-Type: application/json
+
+###
+
+POST http://localhost:8888/monitor
+Content-Type: application/x-www-form-urlencoded
+
+path=shop-service
+
+###
+
+POST http://localhost:8888/encrypt
+Content-Type: text/html
+
+20
+
+###
+
+POST http://localhost:8888/decrypt
+
+3d2a7605a0d7acc25db41c141fdd8a5a86ba97e49b23d70fb4a79e3941c535f2
+
+###
+
+# rate(http_server_requests_seconds_count{uri="/payments"}[5m])
+# Spring dashboard id: 4701
+
+###
+
+// @no-cookie-jar
+POST http://localhost:9100/auth/realms/cloud/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=cloud-service&username=user&password=123&grant_type=password
+
+###
+
+// @no-cookie-jar
+POST http://localhost:8000/auth/realms/cloud/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+client_id=cloud-service&grant_type=refresh_token&refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0YmY1NDU5Mi01NDNiLTRkOTktODk0OC1iOTdmYmNlZTljYzEifQ.eyJleHAiOjE2MDU3OTA3ODIsImlhdCI6MTYwNTc4ODk4MiwianRpIjoiNjIyMzMzYWYtNDc5Ni00NDUzLTg5MDItZDQwMDc5YWIwMjRlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2F1dGgvcmVhbG1zL2Nsb3VkIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2F1dGgvcmVhbG1zL2Nsb3VkIiwic3ViIjoiM2M4OTExN2ItYjllOS00NWNlLTk2YzItOWE3MWRkZDAyNjY1IiwidHlwIjoiUmVmcmVzaCIsImF6cCI6ImNsb3VkLXNlcnZpY2UiLCJzZXNzaW9uX3N0YXRlIjoiOTJkMDU2MjktMWViMi00MTNkLWEwMmEtMTQzMmViM2M3YTgxIiwic2NvcGUiOiJwcm9maWxlIGVtYWlsIn0.spNkP_JCOC2s1eZUqNlrJV4bkCbL1zXSG1_A4V7Gatg
